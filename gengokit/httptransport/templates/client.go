@@ -220,6 +220,8 @@ func CtxValuesToSend(keys ...string) httptransport.ClientOption {
 				if strings.Contains(r.Host, ":") {
 					if host, _, err := net.SplitHostPort(r.Host); err == nil {
 						span.SetTag(ext.NetworkDestinationName, host)
+					} else {
+						fmt.Printf("error splitting host from port %v", err)
 					}
 				} else {
 					span.SetTag(ext.NetworkDestinationName, r.Host)
